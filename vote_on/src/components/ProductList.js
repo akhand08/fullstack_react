@@ -14,17 +14,33 @@ import Product, {allProducts} from "./Products";
 function ProductList() {
     
 
-    const [products, setProducts] = useState(allProducts.sort((a,b) => a.votes - b.votes));
-    const updateVote = (productId) => {
-        console.log('Updating vote for productId:', productId);
-        setProducts((prevProducts) => {
-            return prevProducts.map((product) =>
-                product.id === productId ? { ...product, votes: product.votes + 1 } : product
-            );
-        });
+    const [products, setProducts] = useState(allProducts);
 
-        console.log('Updating vote for productId:', productId);
-    };
+    const updateVote = (productId) => {
+        console.log("Product Id is ", productId);
+        const nextProducts = products.map((product) => {
+            if(product.id === productId) {
+                return Object.assign({}, product, {
+                    votes : product.votes + 1,
+                });
+            } 
+            else {
+                return product;
+            }
+        })
+
+        setProducts(nextProducts);
+    }
+    // const updateVote = (productId) => {
+    //     console.log('Updating vote for productId:', productId);
+    //     setProducts((prevProducts) => {
+    //         return prevProducts.map((product) =>
+    //             product.id === productId ? { ...product, votes: product.votes + 1 } : product
+    //         );
+    //     });
+
+    //     console.log('Updating vote for productId:', productId);
+    // };
     
 
 
